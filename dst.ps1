@@ -45,12 +45,12 @@ Write-Host "       DISK STRESS TEST  setup              " -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan
 Write-Host ""
 
-$fileSizeMB = 0
+$fileSizeMB = 0L
 do {
     $userInput = Read-Host "  Enter test file size in Megabytes (e.g. 512)"
-    $valid = [int]::TryParse($userInput.Trim(), [ref]$fileSizeMB) -and ($fileSizeMB -ge 1)
+    $valid = [long]::TryParse($userInput.Trim(), [ref]$fileSizeMB) -and ($fileSizeMB -ge 1) -and ($fileSizeMB -le 32768)
     if (-not $valid) {
-        Write-Host "  ! Enter a whole number >= 1" -ForegroundColor Red
+        Write-Host "  ! Enter a whole number between 1 and 32768 (32 GB max)" -ForegroundColor Red
     }
 } while (-not $valid)
 
